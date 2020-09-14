@@ -13,7 +13,7 @@
  * Example of usage of this higher-order function:
  * Invoking `processFirstItem` passing `['foo', 'bar']` and `(str) => str + str`,
  * should return 'foofoo'.
-*/
+ */
 function processFirstItem(stringList, callback) {
   return callback(stringList[0])
 }
@@ -32,7 +32,7 @@ function processFirstItem(stringList, callback) {
  * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
  *
-*/
+ */
 
 // counter1 code
 function counterMaker() {
@@ -56,11 +56,14 @@ function counter2() {
 
 Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
-
-    /*Code Here*/
+function inning() {
+  return Math.floor(Math.random() * 2 + 1);
 
 }
+let team1 = inning();
+let team2 = inning();
+
+
 
 /* Task 3: finalScore()
 
@@ -74,15 +77,24 @@ finalScore(inning, 9) might return:
   "Away": 5,
 }
 
-*/ 
+*/
+let home = 0;
+let away = 0;
 
-function finalScore(/*code Here*/){
+function finalScore(inning, num) {
+  for (let count = 1; count < num; count++) {
+    home += inning();
+    away += inning();
+  }
 
-  /*Code Here*/
-
+  console.log(`Home: ${home}`);
+  console.log(`Away: ${away}`);
 }
 
-/* Task 4: 
+finalScore(inning, 9);
+
+/* Task 4:
+
 
 Create a function called `scoreboard` that accepts the following parameters: 
 
@@ -103,9 +115,31 @@ and returns the score at each pont in the game, like so:
 9th inning: awayTeam - homeTeam
 
 Final Score: awayTeam - homeTeam */
+let home1 = [];
+let away1 = [];
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(getInningScore, inning, num) {
+  function getInningScore() {
+    for (let count = 1; count < num + 1; count++) {
+      home1[count].push(inning());
+      away1[count].push(inning());
+      if (count === 1) {
+        console.log(`${count}st inning: ${away1} - ${home1}`);
+      }
+      if (count === 2) {
+        console.log(`${count}nd inning: ${away1} - ${home1}`);
+      }
+      if (count === 3) {
+        console.log(`${count}rd inning: ${away1} - ${home1}`);
+      } else {
+        console.log(`${count}th inning: ${away1} - ${home1}`);
+      }
+      return getInningScore();
+    }
+  }
+  if (count === num) {
+    console.log(`Final Score: ${away} - ${home}`);
+  }
 }
 
-
+getInningScore();
